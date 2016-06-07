@@ -1,0 +1,96 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red180\green36\blue25;\red47\green180\blue29;\red64\green11\blue217;
+}
+\margl1440\margr1440\vieww17700\viewh14740\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\fs42 \cf2 \CocoaLigature0 databases\cf0  [\cf3 master\cf0 ] :> git checkout -b 8_2_nh_pair_feature\
+Switched to a new branch '8_2_nh_pair_feature'\
+\cf2 databases\cf0  [\cf3 8_2_nh_pair_feature\cf0 ] :> ls\
+derby.db        
+\f1\b \cf4 kitten_maker
+\f0\b0 \cf0     sanctuary.db    sanctuary_nh.db\
+\cf2 databases\cf0  [\cf3 8_2_nh_pair_feature\cf0 ] :> sqlite3 derby_nh.db\
+SQLite version 3.7.13 2012-07-17 17:46:21\
+Enter ".help" for instructions\
+Enter SQL statements terminated with a ";"\
+sqlite> CREATE TABLE players (\
+   ...> id INTEGER PRIMARY KEY,\
+   ...> name VARCHAR(255),\
+   ...> number INT,\
+   ...> team VARCHAR(255);\
+Error: near ";": syntax error\
+sqlite> CREATE TABLE players (\
+   ...>    \
+   ...> \
+   ...> ;\
+Error: near ";": syntax error\
+sqlite> select * from players\
+   ...> CREATE TABLE players (id INTEGER PRIMARY KEY, name VARCHAR(255), number INT, team VARCHAR(255);\
+Error: near "CREATE": syntax error\
+sqlite> CREATE TABLE players (id INTEGER PRIMARY KEY, name VARCHAR(255), number INT, team VARCHAR(255);\
+Error: near ";": syntax error\
+sqlite> .table\
+sqlite> CREATE TABLE players (id INTEGER PRIMARY KEY, name VARCHAR(255), number INT, team VARCHAR(255));\
+sqlite> .team\
+Error: unknown command or invalid arguments:  "team". Enter ".help" for help\
+sqlite> .players\
+Error: unknown command or invalid arguments:  "players". Enter ".help" for help\
+sqlite> .table\
+players\
+sqlite> INSERT INTO players (name, number, team) VALUES ("Miss D. Meaner", 87, "Wrecking Belles"), ("Grave Danger", 6, "Team Unicorn");\
+sqlite> SELECT * FROM players;\
+1|Miss D. Meaner|87|Wrecking Belles\
+2|Grave Danger|6|Team Unicorn\
+sqlite> CREATE TABLE teams (team_id INTEGER PRIMARY KEY, team_name);\
+sqlite> select * from teams;\
+sqlite> INSERT INTO teams (team_name) VALUES ("Wrecking Bells"), ("Team Unicorn");\
+sqlite> select * from teams;\
+1|Wrecking Bells\
+2|Team Unicorn\
+sqlite> drop table players;\
+sqlite> .table\
+teams\
+sqlite> CREATE TABLE players (id INTEGER PRIMARY KEY, name VARCHAR(255), number INT, team_id INT, FOREIGN KEY (team_id) REFERENCES teams(id));\
+sqlite> INSERT INTO players (name, number, team_id) VALUES ("Miss D. Meaner" 87, 1), ("Grave Danger", 6, 2);\
+Error: near "87": syntax error\
+sqlite> INSERT INTO players (name, number, team_id) VALUES ("Miss D. Meaner", 87, 1), ("Grave Danger", 6, 2);\
+sqlite> select * players;\
+Error: near "players": syntax error\
+sqlite> select * from players;\
+1|Miss D. Meaner|87|1\
+2|Grave Danger|6|2\
+sqlite> select * from players, teams WHERE players.team_id = teams.id;\
+Error: no such column: teams.id\
+sqlite> .tables\
+players  teams  \
+sqlite> select * from teams;\
+1|Wrecking Bells\
+2|Team Unicorn\
+sqlite> sqlite> select * from teams;\
+1|Wrecking Bells\
+2|Team Unicorn\
+sqlite> SELECT * FROM players, teams WHERE players.team_id = team_name.id;\
+Error: no such column: team_name.id\
+sqlite> SELECT * FROM players, teams WHERE players.team_id = teams.id;\
+Error: no such column: teams.id\
+sqlite> SELECT * FROM players, teams WHERE players.team_id = team_name;\
+sqlite> \
+sqlite> SELECT * FROM players, teams WHERE players.team_id = teams.team_id;\
+1|Miss D. Meaner|87|1|1|Wrecking Bells\
+2|Grave Danger|6|2|2|Team Unicorn\
+sqlite> SELECT * FROM teams WHERE players.team_id = teams.team_id, players;\
+Error: near ",": syntax error\
+sqlite> SELECT * FROM teams WHERE players.team_id = teams.team_id, players;\
+Error: near ",": syntax error\
+sqlite> SELECT * FROM teams, players WHERE teams.team_id = players.team_id;\
+1|Wrecking Bells|1|Miss D. Meaner|87|1\
+2|Team Unicorn|2|Grave Danger|6|2\
+sqlite> SELECT players.name, teams.name FROM players JOIN teams ON players.team_id = teams.team_id;\
+Error: no such column: teams.name\
+sqlite> SELECT players.name, teams.team_name FROM players JOIN teams ON players.team_id = teams.team_id;\
+Miss D. Meaner|Wrecking Bells\
+Grave Danger|Team Unicorn\
+sqlite> \
+}
