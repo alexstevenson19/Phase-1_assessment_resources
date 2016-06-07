@@ -1,0 +1,167 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red180\green36\blue25;\red47\green180\blue29;\red64\green11\blue217;
+}
+\margl1440\margr1440\vieww16000\viewh17660\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\fs38 \cf2 \CocoaLigature0 phase-0-tracks\cf0  [\cf3 master\cf0 ] :> ls\
+
+\f1\b \cf4 css
+\f0\b0 \cf0              
+\f1\b \cf4 html
+\f0\b0 \cf0             
+\f1\b \cf4 ruby
+\f0\b0 \cf0 \
+
+\f1\b \cf4 databases
+\f0\b0 \cf0        
+\f1\b \cf4 js
+\f0\b0 \cf0               
+\f1\b \cf4 version-control
+\f0\b0 \cf0 \
+\cf2 phase-0-tracks\cf0  [\cf3 master\cf0 ] :> cd databases/\
+\cf2 databases\cf0  [\cf3 master\cf0 ] :> ls\
+sanctuary.db\
+\cf2 databases\cf0  [\cf3 master\cf0 ] :> git checkout -b 8_1_database_feature\
+Switched to a new branch '8_1_database_feature'\
+\cf2 databases\cf0  [\cf3 8_1_database_feature\cf0 ] :> sqlite3 sanctuary.db \
+SQLite version 3.7.13 2012-07-17 17:46:21\
+Enter ".help" for instructions\
+Enter SQL statements terminated with a ";"\
+sqlite> .help\
+.backup ?DB? FILE      Backup DB (default "main") to FILE\
+.bail ON|OFF           Stop after hitting an error.  Default OFF\
+.databases             List names and files of attached databases\
+.dump ?TABLE? ...      Dump the database in an SQL text format\
+                         If TABLE specified, only dump tables matching\
+                         LIKE pattern TABLE.\
+.echo ON|OFF           Turn command echo on or off\
+.exit                  Exit this program\
+.explain ?ON|OFF?      Turn output mode suitable for EXPLAIN on or off.\
+                         With no args, it turns EXPLAIN on.\
+.header(s) ON|OFF      Turn display of headers on or off\
+.help                  Show this message\
+.import FILE TABLE     Import data from FILE into TABLE\
+.indices ?TABLE?       Show names of all indices\
+                         If TABLE specified, only show indices for tables\
+                         matching LIKE pattern TABLE.\
+.log FILE|off          Turn logging on or off.  FILE can be stderr/stdout\
+.mode MODE ?TABLE?     Set output mode where MODE is one of:\
+                         csv      Comma-separated values\
+                         column   Left-aligned columns.  (See .width)\
+                         html     HTML <table> code\
+                         insert   SQL insert statements for TABLE\
+                         line     One value per line\
+                         list     Values delimited by .separator string\
+                         tabs     Tab-separated values\
+                         tcl      TCL list elements\
+.nullvalue STRING      Print STRING in place of NULL values\
+.output FILENAME       Send output to FILENAME\
+.output stdout         Send output to the screen\
+.prompt MAIN CONTINUE  Replace the standard prompts\
+.quit                  Exit this program\
+.read FILENAME         Execute SQL in FILENAME\
+.restore ?DB? FILE     Restore content of DB (default "main") from FILE\
+.schema ?TABLE?        Show the CREATE statements\
+                         If TABLE specified, only show tables matching\
+                         LIKE pattern TABLE.\
+.separator STRING      Change separator used by output mode and .import\
+.show                  Show the current values for various settings\
+.stats ON|OFF          Turn stats on or off\
+.tables ?TABLE?        List names of tables\
+                         If TABLE specified, only list tables matching\
+                         LIKE pattern TABLE.\
+.timeout MS            Try opening locked tables for MS milliseconds\
+.trace FILE|off        Output each SQL statement as it is run\
+.vfsname ?AUX?         Print the name of the VFS stack\
+.width NUM1 NUM2 ...   Set column widths for "column" mode\
+.timer ON|OFF          Turn the CPU timer measurement on or off\
+sqlite> .tables\
+hamsters  rabbits \
+sqlite> SELECT * FROM rabbits;\
+Mr. Whiskers|6|true\
+Queen Bey|3|true\
+Sylvie|2|false\
+Buster|3|false\
+Casey|1|true\
+sqlite> SELECT name, age FROM rabbits;\
+Mr. Whiskers|6\
+Queen Bey|3\
+Sylvie|2\
+Buster|3\
+Casey|1\
+sqlite> SELECT * FROM rabbits WHERE fluffy="true";\
+Mr. Whiskers|6|true\
+Queen Bey|3|true\
+Casey|1|true\
+sqlite> SELECT * FROM rabbits WHERE age=3, fluffy="true";\
+Error: near ",": syntax error\
+sqlite> SELECT * FROM rabbits WHERE age=3 fluffy="true";\
+Error: near "fluffy": syntax error\
+sqlite> SELECT * FROM rabbits WHERE name="Queen Bey";\
+Queen Bey|3|true\
+sqlite> INSERT INTO rabbits (name, age, fluffy) VALUES ("Gumdrop", 2, "true");\
+sqlite> SELECT * FROM rabbits;\
+Mr. Whiskers|6|true\
+Queen Bey|3|true\
+Sylvie|2|false\
+Buster|3|false\
+Casey|1|true\
+Gumdrop|2|true\
+sqlite> UPDATE rabbits SET age=4 WHERE name="Queen Bey";\
+sqlite> SELECT * FROM rabbits;\
+Mr. Whiskers|6|true\
+Queen Bey|4|true\
+Sylvie|2|false\
+Buster|3|false\
+Casey|1|true\
+Gumdrop|2|true\
+sqlite> UPDATE rabbits SET name="Super Buster" WHERE name="Buster";\
+sqlite> SELECT * FROM rabbits;\
+Mr. Whiskers|6|true\
+Queen Bey|4|true\
+Sylvie|2|false\
+Super Buster|3|false\
+Casey|1|true\
+Gumdrop|2|true\
+sqlite> CREATE TABLE llamas (fur_color VARCHAR(255), weight_load INT, spitter BOOLEAN); \
+sqlite> INSERT INTO llamas (fur_color, weight_load, spitter) VALUES ("brown", 75, "false");\
+sqlite> INSERT INTO llamas (fur_color, weight_load, spitter) VALUES ("white and tan", 85, "true");\
+sqlite> INSERT INTO llamas (fur_color, weight_load, spitter) VALUES ("black", 80, "false");\
+sqlite> SELECT * FROM llamas;\
+brown|75|false\
+white and tan|85|true\
+black|80|false\
+sqlite> INSERT INTO llamas (fur_color, weight_load, spitter) VALUES ("bright pink", 100, "true");\
+sqlite> INSERT INTO llamas (fur_color, weight_load, spitter) VALUES ("royal blue", 95, "true");\
+sqlite> SELECT * FROM llamas;\
+brown|75|false\
+white and tan|85|true\
+black|80|false\
+bright pink|100|true\
+royal blue|95|true\
+sqlite> .tables\
+hamsters  llamas    rabbits \
+sqlite> SELECT * FROM hamsters\
+   ...> SELECT * FROM hamsters;\
+Error: near "SELECT": syntax error\
+sqlite> SELECT * FROM hamsters;\
+Cuddleloaf|2\
+Frankie|1\
+sqlite> .tables\
+hamsters  llamas    rabbits \
+sqlite> DROP TABLE hamsters\
+   ...> DROP TABLE hamsters;\
+Error: near "DROP": syntax error\
+sqlite> DROP TABLE hamsters;\
+sqlite> .tables\
+llamas   rabbits\
+sqlite> DELETE FROM rabbits WHERE name="Sylvie";\
+sqlite> SELECT * FROM rabbits;\
+Mr. Whiskers|6|true\
+Queen Bey|4|true\
+Super Buster|3|false\
+Casey|1|true\
+Gumdrop|2|true\
+sqlite> }
