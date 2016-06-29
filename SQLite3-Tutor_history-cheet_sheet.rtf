@@ -1,0 +1,485 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Times-Roman;\f2\fmodern\fcharset0 Courier;
+\f3\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;\red14\green14\blue14;\red246\green246\blue239;\red38\green38\blue38;
+}
+\margl1440\margr1440\vieww20460\viewh16660\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs38 \cf0 Sql history\
+{\field{\*\fldinst{HYPERLINK "https://sqltutor.devbootcamp.com/"}}{\fldrslt https://sqltutor.devbootcamp.com/}}\
+\
+\
+SELECT * FROM invoices;\
+\
+SELECT first_name, last_name FROM employees;\
+\
+SELECT name FROM media_types;\
+\
+SELECT * FROM employees ORDER BY hire_date DESC\
+\
+SELECT hire_date, first_name, last_name \
+FROM employees\
+WHERE hire_date < date('2011-02-15');\
+\
+
+\i (Select employees whose names begin with the letter \'91a\'92)
+\i0 \
+SELECT * FROM employees \
+WHERE first_name \
+LIKE 'A%';\
+\
+SELECT * FROM invoices \
+WHERE billing_city = 'Redmond';\
+\
+\
+SELECT billing_address FROM invoices \
+WHERE billing_city = 'Redmond';\
+\
+SELECT * FROM invoices\
+WHERE billing_city = 'Reno'\
+AND total > 5.00;\
+\
+\
+SELECT * FROM tracks\
+WHERE composer IS null;\
+\
+\
+SELECT * FROM invoices\
+WHERE billing_city = 'Redmond'\
+ORDER BY total ASC;\
+\
+\
+SELECT * FROM invoices\
+WHERE billing_country = 'Germany'\
+ORDER BY total DESC;\
+\
+\
+SELECT * FROM invoices\
+WHERE billing_country = 'Germany'\
+ORDER BY total DESC LIMIT 10;\
+\
+SELECT * FROM invoices\
+WHERE billing_city = 'Boston'\
+ORDER BY total ASC LIMIT 10;\
+\
+SELECT billing_address FROM invoices\
+WHERE billing_city = 'Cupertino'\
+ORDER BY total DESC LIMIT 3;\
+\
+SELECT * FROM invoices\
+WHERE billing_city = 'Cupertino'\
+OR billing_city = 'Mountain View';\
+\
+SELECT COUNT(*)\
+FROM invoices\
+WHERE billing_city = 'Santiago'\
+GROUP BY billing_city;\
+\
+
+\i give a count of number of customers from each country
+\i0 \
+SELECT country, COUNT(*)\
+FROM customers\
+GROUP BY country;\
+\
+\pard\pardeftab720\sl440\partightenfactor0
+
+\f1\i\fs36 \cf0 \expnd0\expndtw0\kerning0
+Give me a count of the number of tracks by unit price
+\i0 \
+\pard\pardeftab720\sl576\partightenfactor0
+
+\f2\fs38 \cf0 SELECT unit_price, COUNT(*)\
+FROM tracks\
+GROUP BY unit_price;\
+\pard\pardeftab720\sl480\sa160\partightenfactor0
+
+\f3\fs32 \cf2 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\i\fs36 \cf2 Give me a list of names of artists whose name ends with "smith".
+\i0 \
+\pard\pardeftab720\sl576\partightenfactor0
+
+\f2\fs38 \cf0 SELECT name\
+FROM artists\
+WHERE name\
+LIKE '%smith%';\
+\
+\pard\pardeftab720\sl720\partightenfactor0
+
+\f3\i\fs46 \cf2 Give me a list of names of artists whose name ends with "smith".
+\f2\i0\fs38 \cf0 \
+\pard\pardeftab720\sl576\partightenfactor0
+\cf0 SELECT name\
+FROM artists\
+WHERE name\
+LIKE '%smith';\
+\
+\pard\pardeftab720\sl720\partightenfactor0
+
+\f3\i\fs46 \cf2 Give me a count of the number of employees by city
+\i0\fs48 \
+\pard\pardeftab720\sl720\partightenfactor0
+
+\fs36 \cf2 SELECT city, COUNT(*)\
+FROM employees\
+GROUP BY city;\
+\
+\pard\pardeftab720\sl480\sa160\partightenfactor0
+
+\fs32 \cf2 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\i\fs42 \cf2 Give me a list of the top 3 countries by number of customers in descending order
+\i0\fs36 \
+
+\fs34 SELECT country, COUNT(*)\
+FROM customers\
+GROUP BY country\
+ORDER BY count DESC LIMIT 3;
+\fs36 \
+\
+\pard\pardeftab720\sl480\sa160\partightenfactor0
+
+\fs32 \cf2 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\i\fs44 \cf2 Give me a list of the top 5 cities by number of invoices in descending order
+\i0\fs36 \
+
+\fs32 SELECT billing_city, COUNT(*)\
+FROM invoices\
+GROUP BY billing_city\
+ORDER BY count DESC LIMIT 5;
+\fs36 \
+\
+
+\i\fs44 Give me the artist name and album name next to each other 
+\i0\fs36 \
+SELECT name, title \
+FROM albums\
+JOIN artists \
+ON albums.artist_id = artists.id;\
+\
+\pard\pardeftab720\sl720\partightenfactor0
+
+\i\fs46 \cf2 List all album names along with their track titles
+\i0\fs48 \
+\pard\pardeftab720\sl720\partightenfactor0
+
+\fs38 \cf2 SELECT name, title \
+FROM tracks\
+JOIN albums \
+ON tracks.album_id = albums.id;\
+\
+\pard\pardeftab720\sl480\sa160\partightenfactor0
+
+\fs32 \cf2 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\i\fs42 \cf2 List all artist names alongside the titles of their albums, in alphabetical order by artist name
+\i0\fs36 \
+\pard\pardeftab720\sl576\partightenfactor0
+
+\fs38 \cf2 SELECT name, title \
+FROM albums\
+JOIN artists \
+ON albums.artist_id = artists.id\
+ORDER BY name ASC;
+\fs34 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\fs36 \cf2 \
+\pard\pardeftab720\sl720\partightenfactor0
+
+\i\fs40 \cf2 List all customers' first and last names next to the totals on their invoices, ordered by total, high to low
+\i0 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\fs36 \cf2 SELECT first_name, last_name, total \
+FROM invoices\
+JOIN customers \
+ON invoices.customer_id = customers.id\
+ORDER BY total DESC;
+\fs32 \
+\pard\pardeftab720\sl720\partightenfactor0
+
+\fs30 \cf2 \
+\pard\pardeftab720\sl480\sa160\partightenfactor0
+
+\fs32 \cf2 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\i\fs40 \cf2 Give me the customer (and their invoice) with the highest invoice total
+\i0\fs36 \
+SELECT *\
+FROM customers\
+JOIN invoices \
+ON invoices.customer_id = customers.id\
+ORDER BY total DESC LIMIT 1;
+\fs32 \
+\pard\pardeftab720\sl720\partightenfactor0
+
+\fs30 \cf2 \
+\pard\pardeftab720\sl480\sa160\partightenfactor0
+
+\fs32 \cf2 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\i\fs40 \cf2 Give me a list of every Aerosmith album
+\i0\fs30 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\fs36 \cf2 SELECT *\
+FROM albums\
+JOIN artists \
+ON albums.artist_id = artists.id\
+WHERE name = 'Aerosmith';\
+\pard\pardeftab720\sl720\partightenfactor0
+
+\fs30 \cf2 \
+\pard\pardeftab720\sl480\sa160\partightenfactor0
+
+\fs32 \cf2 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\i\fs40 \cf2 Give me a list of albums that contains a song called "Midnight"
+\i0\fs36 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\fs34 \cf2 SELECT *\
+FROM albums\
+JOIN tracks \
+ON albums.id = tracks.album_id\
+WHERE name LIKE 'Midnight';
+\fs30 \
+\pard\pardeftab720\sl720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sl480\sa160\partightenfactor0
+
+\fs32 \cf2 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\i\fs38 \cf2 Give me a list of every artist who has performed the song "Midnight"
+\fs34 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\i0 \cf2 SELECT artists.name\
+FROM artists\
+LEFT JOIN albums ON albums.artist_id = artists.id\
+LEFT JOIN tracks ON tracks.album_id = albums.id\
+WHERE tracks.name LIKE 'Midnight';
+\fs30 \
+\pard\pardeftab720\sl720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sl480\sa160\partightenfactor0
+
+\fs32 \cf2 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\i\fs38 \cf2 Give me a count of the number of albums by Iron Maiden
+\i0\fs36 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\fs34 \cf2 SELECT COUNT(*)\
+FROM artists\
+JOIN albums ON albums.artist_id = artists.id\
+WHERE name = 'Iron Maiden'\
+GROUP BY name;
+\fs30 \
+\pard\pardeftab720\sl720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sl440\partightenfactor0
+
+\f1\i\fs40 \cf0 List all artists and the number of albums they each have
+\f3\i0\fs30 \cf2 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\fs34 \cf2 SELECT name, COUNT(*)\
+FROM artists\
+JOIN albums ON albums.artist_id = artists.id\
+GROUP BY name\
+ORDER BY name ASC;
+\fs30 \
+\pard\pardeftab720\sl720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sl480\sa160\partightenfactor0
+
+\fs32 \cf2 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\i\fs36 \cf2 List all albums next to the number of tracks they each have
+\i0\fs30 \cf2 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\fs34 \cf2 SELECT title, COUNT(*)\
+FROM albums\
+JOIN tracks ON tracks.album_id = albums.id\
+GROUP BY title\
+ORDER BY title ASC;\
+\pard\pardeftab720\sl720\partightenfactor0
+
+\fs30 \cf2 \
+\pard\pardeftab720\sl440\partightenfactor0
+
+\f1\i\fs40 \cf0 Find the artist with the most albums
+\i0\fs36 \
+\pard\pardeftab720\sl576\partightenfactor0
+
+\f2\fs38 \cf0 SELECT artists.id, name, COUNT(*)\
+FROM artists\
+JOIN albums ON albums.artist_id = artists.id\
+GROUP BY artists.id\
+ORDER BY count DESC LIMIT 1;
+\f3\fs30 \cf2 \
+\
+\
+\pard\pardeftab720\sl720\partightenfactor0
+
+\i\fs48 \cf2 Find the album with the most tracks
+\i0 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\fs34 \cf2 SELECT albums.id, title, artist_id, COUNT(*)\
+FROM albums\
+JOIN tracks ON tracks.album_id = albums.id\
+GROUP BY albums.id\
+ORDER BY count DESC LIMIT 1;
+\fs32 \cf2 \
+\pard\pardeftab720\sl720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sl480\sa160\partightenfactor0
+
+\i \cf2 \
+\pard\pardeftab720\sl480\partightenfactor0
+
+\fs36 \cf2 List the names of the top five customers based on the sums of their invoice totals
+\i0 \
+\pard\pardeftab720\sl720\partightenfactor0
+
+\fs32 \cf2 SELECT first_name, last_name, SUM(total) \
+FROM invoices \
+JOIN customers\
+ON invoices.customer_id = customers.id\
+GROUP BY customers.first_name, customers.last_name\
+ORDER BY SUM DESC, last_name ASC LIMIT 5;\
+\
+\pard\pardeftab720\sl720\partightenfactor0
+
+\i\fs38 \cf2 Order alphabetically
+\i0\fs32 \
+SELECT *\
+FROM artists \
+ORDER BY name ASC;\
+\
+\
+\
+SELECT albums.*, COUNT(tracks.*)\
+FROM albums \
+JOIN tracks\
+ON tracks.album_id = albums.id\
+GROUP BY albums.id\
+ORDER BY count desc;\
+=======================================================================\
+\pard\pardeftab720\sl512\partightenfactor0
+
+\i \cf4 What were the names of the eight congress members who received the most votes and how many votes did each receive?
+\i0 \
+SELECT name, count(*)\
+FROM votes\
+JOIN congress_members\
+ON votes.politician_id = congress_members.id\
+GROUP BY politician_id\
+ORDER BY count(*) DESC limit 8;\
+\
+\
+
+\i ** DISTINCT***
+\i0 \
+\
+SELECT location, COUNT(distinct voter_id)\
+FROM votes\
+JOIN congress_members ON votes.politician_id = congress_members.id\
+JOIN voters ON votes.voter_id = voters.id\
+GROUP BY location\
+ORDER BY count(*) DESC LIMIT 1;\
+\
+\
+\
+
+\i **HAVING & multiple orders, first by count, the alphabetical order after that***
+\i0 \
+\
+SELECT COUNT(*), first_name, last_name\
+FROM votes\
+JOIN congress_members ON votes.politician_id = congress_members.id\
+JOIN voters ON votes.voter_id = voters.id\
+GROUP BY voter_id\
+HAVING count(*) > 5\
+ORDER BY count(*) DESC, first_name ASC;\
+\
+\
+
+\i **HAVING combined with GROUP***
+\i0 \
+\
+SELECT COUNT(*), name, first_name, last_name\
+FROM votes\
+JOIN congress_members ON votes.politician_id = congress_members.id\
+JOIN voters ON votes.voter_id = voters.id\
+GROUP BY politician_id, voter_id\
+HAVING count(*) > 1\
+ORDER BY count(*) DESC, name ASC;\
+\
+\
+\
+\pard\pardeftab720\sl512\partightenfactor0
+\cf4 \expnd0\expndtw0\kerning0
+From old assessment ,\cf4 \expnd0\expndtw0\kerning0
+================================================================================\
+\
+SELECT * FROM BOOKS;\
+\
+SELECT * FROM BOOKS WHERE title LIKE '%Ruby%';\
+\
+SELECT * FROM authors WHERE name LIKE 'Dav%';\
+\
+SELECT * FROM books \
+JOIN publishers\
+ON books.publisher_id = publishers.id\
+WHERE name = 'Addison-Wesley';\
+\
+\
+SELECT * FROM books \
+JOIN authors\
+ON books.author_id = authors.id\
+WHERE name = 'Jonathan Penn';\
+\
+SELECT * FROM books \
+JOIN publishers\
+ON books.publisher_id = publishers.id\
+WHERE title LIKE '%iOS%';\
+\
+SELECT authors.name, publishers.name FROM books \
+JOIN authors ON books.author_id = authors.id\
+JOIN publishers ON books.publisher_id = publishers.id\
+WHERE authors.name LIKE 'Sandi Metz';\
+\
+\
+Insert Into authors (name) Values ('Douglas Adams');\
+sqlite> .width 10 15\
+\
+Insert Into publishers (name) Values ('Pan Books');\
+\
+Insert Into books (title,author_id,publisher_id) Values ('Dont Panic',16,8);\
+\
+UPDATE authors SET name = "David A. Black" WHERE name = "David Black";\
+\
+DELETE FROM books WHERE title = 'Dont Panic';\
+\
+DELETE FROM authors WHERE name = 'Douglas Adams';\
+\
+DELETE FROM publishers WHERE name = 'Pan Books;\
+}
